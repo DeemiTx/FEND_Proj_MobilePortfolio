@@ -23,6 +23,8 @@ Access website resources (index.html) using following URL:
 * Used media attribute/query to unblock rendering
 * Moved analytics code to the end and used async attribute to prevent parser blocking
 
+Please see index.html for more details.  Comments prefixed by "Nadeem" are added all through the file to provide details on modifications.
+
 #### Enhancements to main.js to optimize to 60 FPS during scrolling and resize pizzas in 5 ms or less
 * Removed determineDx function and optimized changePizzaSizes function per Cameron's demo in lesson #8
 * Optimized updatePositions function by moving some functionality out of loops
