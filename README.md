@@ -31,3 +31,20 @@ Please see index.html for more details.  Comments prefixed by "Nadeem" are added
 * Used getElementsByClassName and getElementById
 
 Please see main.js for more details.  Comments prefixed by "Nadeem" are added all through the code to provide details on modifications.
+
+### Modifications/updates (per Review #2 feedback)
+#### main.js
+* Line 448: Replaced querySelectorAll by getElementsByClassName
+* Line 512: Saved items.length in local variable len to avoid accessing length at each iteration
+* Line 515: Replaced 500 by 100 to ensure full screen coverage by background pizzas
+* Line 537 & 538: Used window height to calculate number of rows and pizzas and used numPizzas instead of 200 in loop
+* Line 541: Moved movingPizzas DOM call outside the loop and replaced querySelector with getElementById
+* Line 542: Moved variable elem declaration to loop initialization to prevent repeated declarations
+* Line 550: Replaced elem.basicLeft with elem.style.left
+
+#### index.html
+* Line 67: Resized pizzeria.jpg to 100x75 and updated img tag
+
+#### miscellaneous:
+* Resized pizzeria.jpg to 100x75 and created pizzeria100x75.jpg
+* Restored pizza.png to original size

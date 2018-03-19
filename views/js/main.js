@@ -444,7 +444,8 @@ var resizePizzas = function(size) {
           console.log("bug in sizeSwitcher");
       }
 
-    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+    // Nadeem - Replaced querySelectorAll by getElementsByClassName (Reviewer feedback)
+    var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
     for (var i = 0; i < randomPizzas.length; i++) {
       randomPizzas[i].style.width = newWidth + "%";
     }
@@ -497,7 +498,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  // Nadeem - replaced querySelectorAll by getElementsByClassName
+  // Nadeem - Replaced querySelectorAll by getElementsByClassName
   var items = document.getElementsByClassName('mover');
 
   //Nadeem - Moved following out of loop to avoid repeated recalculation
@@ -507,10 +508,11 @@ function updatePositions() {
     phases[j] = Math.sin((scrollTop / 1250) + j);
   }
 
-  for (var i = 0; i < items.length; i++) {
+  // Nadeem - Saved items.length in local variable len to avoid accessing length at each iteration (Reviewer feedback)
+  for (var i = 0, len = items.length; i < len; i++) {
     // Nadeem - Optimized by using transform & translateX to eliminate Layout step from rendering
-    items[i].style.transform = 'translateX(' + (500 * phases[i % 5]) + 'px)';
-    //items[i].style.left = items[i].basicLeft + 100 * phases[i % 5] + 'px';
+    // Nadeem - Replaced 500 by 100 to ensure full screen coverage by background pizzas (Reviewer feedback)
+    items[i].style.transform = 'translateX(' + (100 * phases[i % 5]) + 'px)';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -530,15 +532,25 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
-    var elem = document.createElement('img');
+
+  // Nadeem - Used window height to calculate number of rows and pizzas and used numPizzas instead of 200 in loop below
+  var rows = Math.ceil(window.innerHeight / s);
+  numPizzas = cols * rows;
+  // Nadeem - Moved variable elem declaration to loop initialization to prevent repeated declarations (Reviewer Feedback)
+  // Nadeem - Moved movingPizzas DOM call outside the loop and replaced querySelector with getElementById (Reviewer) Feedback)
+  var movingPizzas = document.getElementById('movingPizzas1');
+  for (var i = 0, elem; i < numPizzas; i++) {
+    elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
+    // Nadeem - Commented out below statement and replaced with the one following (Reviewer Feedback)
+    //elem.basicLeft = (i % cols) * s;
+    elem.style.left = (i % cols) * s + 'px';
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    //document.querySelector("#movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });
